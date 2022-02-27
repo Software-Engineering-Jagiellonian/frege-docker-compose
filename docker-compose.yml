@@ -1,0 +1,106 @@
+version: '3'
+
+services:
+  frege-postgres:
+    container_name: frege-postgres
+    image: jagiellonian/frege-postgres
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+  frege-rabbitmq:
+    container_name: frege-rabbitmq
+    hostname: frege-rabbitmq
+    image: jagiellonian/frege-rabbitmq
+
+  frege-bitbucket-indexer:
+    container_name: frege-bitbucket-indexer
+    image: jagiellonian/frege-bitbucket-indexer
+    env_file:
+      - .env
+    environment:
+      - AFTER=2019-01-01
+      - MIN_FORKS=0
+  frege-gitlab-indexer:
+    container_name: frege-gitlab-indexer
+    image: jagiellonian/frege-gitlab-indexer
+    env_file:
+      - .env
+    environment:
+      - GITLAB_PERSONAL_TOKEN=<gitlab-personal-token>
+      - MIN_STARS=1
+      - MIN_FORKS=1
+      - MAX_INACTIVITY_IN_DAYS=365
+  frege-sourceforge-indexer:
+    container_name: frege-sourceforge-indexer
+    image: jagiellonian/frege-indexer-sourceforge
+    env_file:
+      - .env
+  frege-github-indexer:
+    container_name: frege-github-indexer
+    image: jagiellonian/frege-indexer-github
+    env_file:
+      - .env
+    environment:
+      - GITHUB_PERSONAL_TOKEN=<github-personal-token>
+      - MIN_STARS=2
+      - MIN_FORKS=2
+      - LAST_UPDATE=2019-01-01
+
+  frege-downloader:
+    container_name: frege-downloader
+    image: jagiellonian/frege-downloader
+    env_file:
+      - .env
+    volumes:
+      - ${REPOSITORIES_PATH}:/repositories/
+
+  frege-extractor:
+    container_name: frege-extractor
+    image: jagiellonian/frege-extractor
+    env_file:
+      - .env
+    volumes:
+      - ${REPOSITORIES_PATH}:/repo_downloads/
+
+  frege-python-analyzer:
+    container_name: frege-python-analyzer
+    image: jagiellonian/frege-analyzer-python
+    env_file:
+      - .env
+    volumes:
+      - ${REPOSITORIES_PATH}:/ToBeChecked
+  frege-php-analyzer:
+    container_name: frege-php-analyzer
+    image: jagiellonian/frege-analyzer-php
+    env_file:
+      - .env
+    volumes:
+      - ${REPOSITORIES_PATH}:/home
+  frege-ruby-analyzer:
+    container_name: frege-ruby-analyzer
+    image: jagiellonian/frege-analyzer-ruby
+    env_file:
+      - .env
+    volumes:
+      - ${REPOSITORIES_PATH}:/repositories
+  frege-java-analyzer:
+    container_name: frege-java-analyzer
+    image: jagiellonian/frege-analyzer-java
+    env_file:
+      - .env
+    volumes:
+      - ${REPOSITORIES_PATH}:/ToBeChecked
+  frege-cpp-analyzer:
+    container_name: frege-cpp-analyzer
+    image: jagiellonian/frege-analyzer-cpp
+    env_file:
+      - .env
+    volumes:
+      - ${REPOSITORIES_PATH}:/ToBeChecked
+
+  frege-garbage-collector:
+    container_name: frege-garbage-collector
+    image: jagiellonian/frege-garbage-collector
+    env_file:
+      - .env
+    volumes:
+      - ${REPOSITORIES_PATH}:/repositories
