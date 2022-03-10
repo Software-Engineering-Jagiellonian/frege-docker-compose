@@ -14,7 +14,9 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_PASSWORD=superUltraConfidentPassword
+      - POSTGRES_DB=frege
+      - POSTGRES_USER=postgres
     networks:
       - fregenet
     logging:
@@ -45,6 +47,9 @@ services:
       - MIN_FORKS=0
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -63,6 +68,9 @@ services:
       - MAX_INACTIVITY_IN_DAYS=365
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -76,6 +84,9 @@ services:
       - .env
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -94,6 +105,9 @@ services:
       - LAST_UPDATE=2019-01-01
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -109,6 +123,9 @@ services:
       - repositories_data:/repositories/
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -124,6 +141,9 @@ services:
       - repositories_data:/repo_downloads/
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -139,6 +159,9 @@ services:
       - repositories_data:/ToBeChecked
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -154,6 +177,9 @@ services:
       - repositories_data:/home
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -169,6 +195,14 @@ services:
       - repositories_data:/repositories
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1024k"
+        max-file: "5"
 
   frege-java-analyzer:
     container_name: frege-java-analyzer
@@ -179,6 +213,9 @@ services:
       - repositories_data:/ToBeChecked
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -194,6 +231,9 @@ services:
       - repositories_data:/ToBeChecked
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
@@ -209,6 +249,9 @@ services:
       - repositories_data:/repositories
     networks:
       - fregenet
+    depends_on:
+      - frege-postgres
+      - frege-rabbitmq
     logging:
       driver: "json-file"
       options:
