@@ -1,12 +1,5 @@
 version: '3'
 
-networks:
-  fregenet:
-
-volumes:
-  repositories_data:
-  pg_data:
-
 services:
   frege-postgres:
     container_name: frege-postgres
@@ -62,7 +55,6 @@ services:
     env_file:
       - .env
     environment:
-      - GITLAB_PERSONAL_TOKEN=<gitlab-personal-token>
       - MIN_STARS=1
       - MIN_FORKS=1
       - MAX_INACTIVITY_IN_DAYS=365
@@ -99,7 +91,6 @@ services:
     env_file:
       - .env
     environment:
-      - GITHUB_PERSONAL_TOKEN=<github-personal-token>
       - MIN_STARS=2
       - MIN_FORKS=2
       - LAST_UPDATE=2019-01-01
@@ -257,3 +248,11 @@ services:
       options:
         max-size: "1024k"
         max-file: "5"
+
+
+networks:
+  fregenet:
+
+volumes:
+  repositories_data:
+  pg_data:
