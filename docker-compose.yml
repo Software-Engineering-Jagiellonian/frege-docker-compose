@@ -1,12 +1,5 @@
 version: '3'
 
-networks:
-  fregenet:
-
-volumes:
-  repositories_data:
-  pg_data:
-
 services:
   frege-postgres:
     container_name: frege-postgres
@@ -19,6 +12,7 @@ services:
       - POSTGRES_USER=postgres
     networks:
       - fregenet
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -31,6 +25,7 @@ services:
     image: jagiellonian/frege-rabbitmq
     networks:
       - fregenet
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -50,6 +45,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -62,7 +58,6 @@ services:
     env_file:
       - .env
     environment:
-      - GITLAB_PERSONAL_TOKEN=<gitlab-personal-token>
       - MIN_STARS=1
       - MIN_FORKS=1
       - MAX_INACTIVITY_IN_DAYS=365
@@ -71,6 +66,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -87,6 +83,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -99,7 +96,6 @@ services:
     env_file:
       - .env
     environment:
-      - GITHUB_PERSONAL_TOKEN=<github-personal-token>
       - MIN_STARS=2
       - MIN_FORKS=2
       - LAST_UPDATE=2019-01-01
@@ -108,6 +104,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -126,6 +123,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -144,6 +142,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -162,6 +161,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -180,6 +180,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -198,6 +199,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -216,6 +218,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -234,6 +237,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -252,8 +256,17 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
         max-size: "1024k"
         max-file: "5"
+
+
+networks:
+  fregenet:
+
+volumes:
+  repositories_data:
+  pg_data:
