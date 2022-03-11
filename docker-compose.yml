@@ -12,6 +12,7 @@ services:
       - POSTGRES_USER=postgres
     networks:
       - fregenet
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -24,6 +25,7 @@ services:
     image: jagiellonian/frege-rabbitmq
     networks:
       - fregenet
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -43,6 +45,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -63,6 +66,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -79,6 +83,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -99,6 +104,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -117,6 +123,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -135,6 +142,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -153,6 +161,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -171,6 +180,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -189,6 +199,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -207,6 +218,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -225,6 +237,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
@@ -243,6 +256,7 @@ services:
     depends_on:
       - frege-postgres
       - frege-rabbitmq
+    restart: always
     logging:
       driver: "json-file"
       options:
